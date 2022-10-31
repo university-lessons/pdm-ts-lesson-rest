@@ -6,6 +6,7 @@ import api from "../services/api";
 
 const renderItem = ({ item }) => {
   console.log(item);
+
   return (
     <View style={styles.item}>
       <Text>{item.id}</Text>
