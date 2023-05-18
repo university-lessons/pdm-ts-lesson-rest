@@ -1,28 +1,31 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, TextInput, FlatList } from "react-native";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
 
 import api from "../services/api";
+import { Car } from "../types/Car";
 
-const renderItem = ({ item }) => {
-  console.log(item);
+interface Props {
+  token: string;
+}
 
-  return (
-    <View style={styles.item}>
-      <Text>{item.id}</Text>
-      <Text>{item.brand}</Text>
-      <Text>{item.model}</Text>
-    </View>
-  );
-};
-
-export default function Home() {
-  const [cars, setCars] = useState([]);
+export default function Home({ token }: Props) {
+  const [cars, setCars] = useState<Car[]>([]);
 
   useEffect(() => {
-    api.get("/cars").then((response) => {
-      setCars(response.data);
-    });
+    // exemplo com then-catch (na outra página usaremos async-await)
+    api
+      .get("/api/collections/cars/records", {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then((response) => {
+        setCars(response.data.items);
+      })
+      .catch((error) => {
+        Alert.alert(error.message);
+      });
   }, []);
 
   return (
@@ -33,8 +36,19 @@ export default function Home() {
 
       <FlatList
         data={cars}
-        renderItem={renderItem}
+        renderItem={({ item }) => {
+          // console.log(item);
+
+          return (
+            <View style={styles.item}>
+              <Text>{item.id}</Text>
+              <Text>{item.brand}</Text>
+              <Text>{item.model}</Text>
+            </View>
+          );
+        }}
         keyExtractor={(car) => car.id}
+        style={styles.flatlist}
       />
     </View>
   );
@@ -48,9 +62,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  flatlist: {
+    padding: 16,
+    width: "100%",
+  },
   title: { fontSize: 16, fontWeight: "bold", marginBottom: 16 },
   item: {
-    flexDirection: "row",
+    flexDirection: "column",
+    marginTop: 8,
     marginBottom: 16,
   },
 });

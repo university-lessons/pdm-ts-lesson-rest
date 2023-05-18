@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://pdm-cars-api.herokuapp.com",
+  baseURL: "http://pb.e2-n1.debug.app.br/",
 });
 
 export default api;

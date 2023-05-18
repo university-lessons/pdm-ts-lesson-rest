@@ -1,10 +1,14 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, TextInput, Button, Alert } from "react-native";
 import { useState } from "react";
+import { Alert, Button, StyleSheet, Text, TextInput, View } from "react-native";
 
 import api from "../services/api";
+import { Car } from "../types/Car";
 
-export default function CreateCar() {
+interface Props {
+  token: string;
+}
+
+export default function CreateCar({ token }: Props) {
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
   const [hp, setHp] = useState("");
@@ -17,11 +21,21 @@ export default function CreateCar() {
     };
 
     // na outra pagina fizemos com Promise.then, aqui com async/await
-    const createdCar = await api.post("/cars", data);
+    const createdCar = await api.post<Car>(
+      "/api/collections/cars/records",
+      data,
+      {
+        headers: {
+          Authorization: token,
+          "content-type": "application/json",
+        },
+      }
+    );
 
-    if (createdCar.status === 201) {
-      Alert.alert("Created!", createdCar.data.model);
+    if (createdCar.status === 200) {
+      Alert.alert("Created! Reload to see results!", createdCar.data.model);
     } else {
+      console.log(createdCar);
       Alert.alert("Error!", "Error Creating Car!");
     }
   };
