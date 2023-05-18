@@ -1,15 +1,12 @@
-import { StatusBar } from "expo-status-bar";
+import { Link } from "expo-router";
 import { useEffect, useState } from "react";
 import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
+import { useTokenContext } from "../../src/contexts/userContext";
+import api from "../../src/services/api";
+import { Car } from "../../src/types/Car";
 
-import api from "../services/api";
-import { Car } from "../types/Car";
-
-interface Props {
-  token: string;
-}
-
-export default function Home({ token }: Props) {
+export default function Home() {
+  const { token } = useTokenContext();
   const [cars, setCars] = useState<Car[]>([]);
 
   useEffect(() => {
@@ -32,7 +29,7 @@ export default function Home({ token }: Props) {
     <View style={styles.container}>
       <Text style={styles.title}>Cars API LIST</Text>
 
-      <StatusBar style="auto" />
+      <Link href="/userspace/create_car">Create a new Car</Link>
 
       <FlatList
         data={cars}

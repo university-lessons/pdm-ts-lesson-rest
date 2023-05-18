@@ -1,14 +1,14 @@
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, Button, StyleSheet, Text, TextInput, View } from "react-native";
+import { useTokenContext } from "../../src/contexts/userContext";
+import api from "../../src/services/api";
+import { Car } from "../../src/types/Car";
 
-import api from "../services/api";
-import { Car } from "../types/Car";
+export default function CreateCar() {
+  const router = useRouter();
+  const { token } = useTokenContext();
 
-interface Props {
-  token: string;
-}
-
-export default function CreateCar({ token }: Props) {
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
   const [hp, setHp] = useState("");
@@ -33,7 +33,8 @@ export default function CreateCar({ token }: Props) {
     );
 
     if (createdCar.status === 200) {
-      Alert.alert("Created! Reload to see results!", createdCar.data.model);
+      Alert.alert("Created!", createdCar.data.model);
+      router.replace("/userspace");
     } else {
       console.log(createdCar);
       Alert.alert("Error!", "Error Creating Car!");
