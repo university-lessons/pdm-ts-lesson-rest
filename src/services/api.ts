@@ -5,3 +5,10 @@ const api = axios.create({
 });
 
 export default api;
+
+export type Car = {
+  id?: string;
+  brand: string;
+  model: string;
+  hp: number;
+};
