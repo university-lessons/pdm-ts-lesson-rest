@@ -1,5 +1,7 @@
 # REST Example using Axios
 
+Video (PT-BR): [https://www.youtube.com/watch?v=pewHnJfl_Y4](https://www.youtube.com/watch?v=pewHnJfl_Y4)
+
 ## Setup API
 
 This project uses PocketBase Rest API.
