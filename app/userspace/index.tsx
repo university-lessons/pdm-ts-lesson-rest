@@ -53,15 +53,14 @@ export default function Home() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 32,
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },
   flatlist: {
     padding: 16,
     width: "100%",
+    flex: 1,
   },
   title: { fontSize: 16, fontWeight: "bold", marginBottom: 16 },
   item: {

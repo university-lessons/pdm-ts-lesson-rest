@@ -1,4 +1,4 @@
-import { Redirect, useRouter } from "expo-router";
+import { Redirect } from "expo-router";
 import { Alert, Button, Text } from "react-native";
 import { useTokenContext } from "../src/contexts/userContext";
 import api from "../src/services/api";
