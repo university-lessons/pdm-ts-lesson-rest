@@ -35,3 +35,7 @@ This app is pre-configured to run using Android Emulator on linux. You can updat
 1. Open the file [src/servies/api.ts](src/servies/api.ts)
 
 2. Uncomment (or edit) `baseUrl` according to your use case
+
+## Lazy?
+
+There's a pre-configured pocketbase instance in [pocketbase/](pocketbase/) folder. Unpack an run it. Admin login is admin@example.com, password is 123123123123.
